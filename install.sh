@@ -47,6 +47,12 @@ apt-get install -q -y \
   netcat-openbsd=1.105* \
   vim=2:7.4.1689*
 
+echo "================= Installing Python packages ==================="
+apt-get install -q -y \
+  python-pip=8.1.1* \
+  python-software-properties=0.96.20* \
+  python-dev=2.7.12*
+
 echo "================= Installing Git ==================="
 add-apt-repository ppa:git-core/ppa -y
 apt-get update

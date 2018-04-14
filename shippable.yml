@@ -1,0 +1,39 @@
+resources:
+  - name: build_custom_ci_repo
+    type: gitRepo
+    integration: drship_github
+    pointer:
+      sourceName: "devops-recipes/build_custom_ci_image"
+      branch: master
+
+  - name: build_custom_ci_dh_cli
+    type: cliConfig
+    integration: drship_dockerhub
+
+  - name: build_custom_ci_img_dh
+    type: image
+    integration: drship_dockerhub # replace with your integration name
+    versionTemplate:
+      sourceName: "devopsrecipes/build_custom_ci" # replace with your Hub URL
+      versionName: latest
+
+jobs:
+  - name: build_custom_ci_image
+    type: runSh
+    steps:
+      - IN: build_custom_ci_repo
+      - IN: build_custom_ci_dh_cli
+        switch: off
+      - TASK:
+          name: build_custom_image
+          script:
+            - pushd $(shipctl get_resource_state "build_custom_ci_repo")
+            - export IMG_NAME=$(shipctl get_resource_version_key build_custom_ci_img_dh "sourceName")
+            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
+            - popd
+      - OUT: build_custom_ci_img_dh
+    on_success:
+      script:
+        - shipctl put_resource_state build_custom_ci_img_dh "versionName=$BUILD_NUMBER"
+    flags:
+      - custom_ci_img

@@ -18,7 +18,7 @@ resources:
       versionName: latest
 
 jobs:
-  - name: build_custom_ci_image
+  - name: build_custom_img
     type: runSh
     steps:
       - IN: build_custom_ci_repo

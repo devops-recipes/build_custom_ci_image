@@ -50,7 +50,7 @@ apt-get install -q -y \
 echo "================= Installing Git ==================="
 add-apt-repository ppa:git-core/ppa -y
 apt-get update
-apt-get install -q -y git=1:2.16.2*
+apt-get install -q -y git
 
 
 echo "================= Adding JQ 1.5.1 ==================="

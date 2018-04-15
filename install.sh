@@ -97,6 +97,9 @@ mv /tmp/packer/packer /usr/bin/packer
 echo "Added packer successfully"
 echo "-----------------------------------"
 
+echo "================= Adding awscli 1.14.64 ============"
+sudo pip install -q 'awscli==1.14.64'
+
 echo "================= Intalling Shippable CLIs ================="
 
 git clone https://github.com/Shippable/node.git nodeRepo

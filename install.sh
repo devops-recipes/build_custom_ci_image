@@ -45,7 +45,8 @@ apt-get install -q -y \
   rsync=3.1.1* \
   psmisc=22.21* \
   netcat-openbsd=1.105* \
-  vim=2:7.4.1689*
+  vim=2:7.4.1689* \
+  python-lxml
 
 echo "================= Installing Python packages ==================="
 apt-get install -q -y \

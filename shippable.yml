@@ -38,3 +38,4 @@ jobs:
         - shipctl put_resource_state build_custom_ci_img_dh "versionName=$BUILD_NUMBER"
     flags:
       - custom_ci_img
+      - war

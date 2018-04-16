@@ -35,7 +35,7 @@ jobs:
       - OUT: build_custom_ci_img_dh
     on_success:
       script:
-        - shipctl put_resource_state build_custom_ci_img_dh "versionName=$BUILD_NUMBER"
+        - shipctl put_resource_state_multi build_custom_ci_img_dh "versionName=$BUILD_NUMBER"
     flags:
       - custom_ci_img
       - war

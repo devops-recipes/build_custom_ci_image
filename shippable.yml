@@ -40,10 +40,12 @@ jobs:
           name: build_custom_image
           script:
             - pushd $(shipctl get_resource_state "build_custom_ci_repo")
-            - export DH_USR_NAME=$(shipctl get_resource_version_key build_custom_ci_dh_int "userName")
-            - export DH_PASS=$(shipctl get_resource_version_key build_custom_ci_dh_int "password")
-            - export DH_URL=$(shipctl get_resource_version_key build_custom_ci_dh_int "url")
-            - printenv
+            - export DH_USR_NAME=$(shipctl get_integration_resource_field build_custom_ci_dh_int "userName")
+            - export DH_PASS=$(shipctl get_integration_resource_field build_custom_ci_dh_int "password")
+            - export DH_URL=$(shipctl get_integration_resource_field build_custom_ci_dh_int "url")
+            - echo $DH_USR_NAME
+            #- echo $DH_PASS
+            - echo $DH_URL
 #            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
 #            - sudo docker push $IMG_NAME:$BUILD_NUMBER
             - popd

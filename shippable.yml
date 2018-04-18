@@ -6,28 +6,12 @@ resources:
       sourceName: "devops-recipes/build_custom_ci_image"
       branch: master
 
-#  - name: build_custom_ci_dh_cli
-#    type: cliConfig
-#    integration: drship_dockerhub
-
-  # - name: build_custom_ci_dh_int
-  #   type: integration
-  #   integration: drship_dockerhub
-
   - name: build_custom_ci_img_dh
     type: image
     integration: drship_dockerhub # replace with your integration name
     versionTemplate:
       sourceName: "devopsrecipes/build_custom_ci" # replace with your Hub URL
       versionName: latest
-
-  # - name: build_custom_ci_img
-  #   type: params
-  #   versionTemplate:
-  #     params:
-  #       IMG_NAME: "devopsrecipes/build_custom_ci" # replace with your Image
-  #       IMG_TAG: "latest"
-
 
 jobs:
   - name: build_custom_img

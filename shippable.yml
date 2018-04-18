@@ -40,6 +40,7 @@ jobs:
           name: build_custom_image
           script:
             - pushd $(shipctl get_resource_state "build_custom_ci_repo")
+            - export IMG_NAME=$(shipctl get_resource_version_key build_custom_ci_img "IMG_NAME")
             - export DH_USR_NAME=$(shipctl get_integration_resource_field build_custom_ci_dh_int "userName")
             - export DH_PASS=$(shipctl get_integration_resource_field build_custom_ci_dh_int "password")
             - export DH_URL=$(shipctl get_integration_resource_field build_custom_ci_dh_int "url")

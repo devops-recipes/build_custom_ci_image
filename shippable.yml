@@ -6,36 +6,53 @@ resources:
       sourceName: "devops-recipes/build_custom_ci_image"
       branch: master
 
-  - name: build_custom_ci_dh_cli
-    type: cliConfig
+#  - name: build_custom_ci_dh_cli
+#    type: cliConfig
+#    integration: drship_dockerhub
+
+  - name: build_custom_ci_dh_int
+    type: integration
     integration: drship_dockerhub
 
-  - name: build_custom_ci_img_dh
-    type: image
-    integration: drship_dockerhub # replace with your integration name
+#  - name: build_custom_ci_img_dh
+#    type: image
+#    integration: drship_dockerhub # replace with your integration name
+#    versionTemplate:
+#      sourceName: "devopsrecipes/build_custom_ci" # replace with your Hub URL
+#      versionName: latest
+
+  - name: build_custom_ci_img
+    type: params
     versionTemplate:
-      sourceName: "devopsrecipes/build_custom_ci" # replace with your Hub URL
-      versionName: latest
+      params:
+        IMG_NAME: "devopsrecipes/build_custom_ci" # replace with your Image
+        IMG_TAG: "latest"
+
 
 jobs:
   - name: build_custom_img
     type: runSh
     steps:
       - IN: build_custom_ci_repo
-      - IN: build_custom_ci_dh_cli
+      - IN: build_custom_ci_dh_int
         switch: off
       - TASK:
           name: build_custom_image
           script:
             - pushd $(shipctl get_resource_state "build_custom_ci_repo")
-            - export IMG_NAME=$(shipctl get_resource_version_key build_custom_ci_img_dh "sourceName")
-            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
-            - sudo docker push $IMG_NAME:$BUILD_NUMBER
+            - export DH_USR_NAME=$(shipctl get_resource_version_key build_custom_ci_dh_int "userName")
+            - export DH_PASS=$(shipctl get_resource_version_key build_custom_ci_dh_int "password")
+            - export DH_URL=$(shipctl get_resource_version_key build_custom_ci_dh_int "url")
+            - echo $DH_USR_NAME
+            #- echo $DH_PASS
+            - echo $DH_URL
+#            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
+#            - sudo docker push $IMG_NAME:$BUILD_NUMBER
             - popd
-      - OUT: build_custom_ci_img_dh
+      - OUT: build_custom_ci_img
     on_success:
       script:
-        - shipctl put_resource_state_multi build_custom_ci_img_dh "versionName=$BUILD_NUMBER"
+        - shipctl put_resource_state_multi build_custom_ci_img "versionName=$BUILD_NUMBER" "IMG_TAG=$BUILD_NUMBER"
     flags:
       - custom_ci_img
       - war

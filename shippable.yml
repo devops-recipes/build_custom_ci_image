@@ -43,11 +43,9 @@ jobs:
             - export DH_USR_NAME=$(shipctl get_integration_resource_field build_custom_ci_dh_int "userName")
             - export DH_PASS=$(shipctl get_integration_resource_field build_custom_ci_dh_int "password")
             - export DH_URL=$(shipctl get_integration_resource_field build_custom_ci_dh_int "url")
-            - echo $DH_USR_NAME
-            #- echo $DH_PASS
-            - echo $DH_URL
-#            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
-#            - sudo docker push $IMG_NAME:$BUILD_NUMBER
+            - sudo docker login -u $DH_USR_NAME -p $DH_PASS
+            - sudo docker build -t=$IMG_NAME:$BUILD_NUMBER --pull .
+            - sudo docker push $IMG_NAME:$BUILD_NUMBER
             - popd
       - OUT: build_custom_ci_img
     on_success:

@@ -66,11 +66,11 @@ apt-get install -q jq=1.5*
 echo "================= Installing Java 1.8.0 ==================="
 . /u16/java/install.sh
 
-echo "================ Installing apache-maven-3.5.2 ================="
-wget -nv http://redrockdigimark.com/apachemirror/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
-tar xzf apache-maven-3.5.2-bin.tar.gz -C /usr/local && rm -f apache-maven-3.5.2-bin.tar.gz
-ln -fs /usr/local/apache-maven-3.5.2/bin/mvn /usr/bin
-echo 'export PATH=$PATH:/usr/local/apache-maven-3.5.2/bin' >> /etc/drydock/.env
+echo "================ Installing apache-maven-3.5.3 ================="
+wget -nv http://www-us.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+tar xzf apache-maven-3.5.3-bin.tar.gz -C /usr/local && rm -f apache-maven-3.5.3-bin.tar.gz
+ln -fs /usr/local/apache-maven-3.5.3/bin/mvn /usr/bin
+echo 'export PATH=$PATH:/usr/local/apache-maven-3.5.3/bin' >> /etc/drydock/.env
 
 echo "================ Adding ansible 2.4.3.0 ===================="
 sudo pip install -q 'ansible==2.4.3.0'
